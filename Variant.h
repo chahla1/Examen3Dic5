@@ -18,6 +18,8 @@ public:
     long getInt();
 
     std::basic_ostream<char, std::char_traits<char>> &getString();
+
+    bool isEmpty();
 };
 
 

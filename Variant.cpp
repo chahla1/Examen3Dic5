@@ -31,4 +31,10 @@ public:
         std::visit([&os](const auto& val) { os << val; }, variant.value);
         return os;
     }
+
+    bool isEmpty();
 };
+
+bool Variant::isEmpty() {
+    return false;
+}

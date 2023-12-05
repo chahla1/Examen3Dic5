@@ -2,41 +2,38 @@
 #include <map>
 #include <string>
 #include "Variant.h"
-using namespace std;
 
 // 1. Estructura Básica:
 class Environment {
 private:
-    map<string, Variant> symbolMap;
+    std::map<std::string, Variant> symbolMap;
 
 public:
     Environment() {
         addSymbol("pi", Variant(3.1416));
     }
 
-    void addSymbol(const string &symbol, const Variant &value) {
+    void addSymbol(const std::string &symbol, const Variant &value) {
         symbolMap[symbol] = value;
     }
 
-    Variant lookup(const string &symbol) const {
+    Variant lookup(const std::string &symbol) const {
         auto it = symbolMap.find(symbol);
         if (it != symbolMap.end()) {
             return it->second;
         } else {
-            return Variant();
+            // Devolver un objeto Variant que indica que el símbolo no fue encontrado
+            return Variant(); // Asumiendo que Variant tiene un constructor predeterminado indicando "sin valor"
         }
     }
 
     // 2. Insertar Símbolos:
-    void insert(const string &symbol, const Variant &value) {
-        // Verificamos si el símbolo ya existe
+    void insert(const std::string &symbol, const Variant &value) {
         auto it = symbolMap.find(symbol);
 
         if (it == symbolMap.end()) {
-            // Si el símbolo no existe, lo añadimos
             symbolMap[symbol] = value;
         } else {
-            // Si el símbolo ya existe, podríamos manejarlo de alguna manera
             it->second = value;
         }
     }
@@ -54,8 +51,18 @@ int main() {
     environment.insert("x", Variant(8));
 
     // Mostramos los valores de los símbolos en el entorno
-    cout << "Value of x: " << environment.lookup("x").getInt() << endl;
-    cout << "Value of y: " << environment.lookup("y").getString() << endl;
+    std::cout << "Value of x: " << environment.lookup("x").getInt() << std::endl;
+    std::cout << "Value of y: " << environment.lookup("y").getString() << std::endl;
+
+    // Probamos el método lookup con un símbolo que no existe
+    Variant resultZ = environment.lookup("z");
+    //3. Búsqueda de Símbolos:
+
+    if (resultZ.isEmpty()) {
+        std::cout << "Symbol 'z' not found." << std::endl;
+    } else {
+        std::cout << "Value of z: " << resultZ.getString() << std::endl;
+    }
 
     return 0;
 }
