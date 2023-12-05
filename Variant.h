@@ -8,6 +8,16 @@
 
 class Variant {
 
+public:
+    Variant();
+
+    Variant(double d);
+
+    Variant(const char string[12]);
+
+    long getInt();
+
+    std::basic_ostream<char, std::char_traits<char>> &getString();
 };
 
 
