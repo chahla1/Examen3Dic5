@@ -1,8 +1,9 @@
 #include <iostream>
 #include <map>
 #include <string>
-using namespace std;
 #include "Variant.h"
+using namespace std;
+
 
 // 1. Estructura Básica:
 
@@ -18,7 +19,7 @@ public:
         symbolMap[symbol] = value;
     }
 
-    Variant lookup(const std::string &symbol) const {
+    Variant lookup(const string &symbol) const {
         auto it = symbolMap.find(symbol);
         if (it != symbolMap.end()) {
             return it->second;
@@ -29,6 +30,18 @@ public:
     }
 };
 //2. Insertar Símbolos:
+void insert(const string &symbol, const Variant &value) {
+    // Verificamos si el símbolo ya existe
+    auto it = symbolMap.find(symbol);
 
+    if (it == symbolMap.end()) {
+        // Si el símbolo no existe, lo añadimos
+        symbolMap[symbol] = value;
+    } else {
+        // Si el símbolo ya existe, podríamos manejarlo de alguna manera
+        it->second = value;
+    }
+}
+};
 
 
