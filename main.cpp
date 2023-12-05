@@ -59,21 +59,21 @@ public:
 
 int main() {
     try {
-        // Probamos el método insert
+        // Crear un objeto Environment
         Environment environment;
 
-        // Añadimos nuevos símbolos al entorno
+        // Añadir símbolos al entorno con sus valores representados por objetos Variant
         environment.insert("x", Variant(10));
         environment.insert("y", Variant("Hola Examen"));
 
-        // Actualizamos el valor de un símbolo existente
+        // Actualizar el valor de un símbolo existente
         environment.insert("x", Variant(8));
 
-        // Mostramos los valores de los símbolos en el entorno
+        // Mostrar los valores de los símbolos en el entorno
         std::cout << "Value of x: " << environment.lookup("x").getInt() << std::endl;
         std::cout << "Value of y: " << environment.lookup("y").getString() << std::endl;
 
-        // Probamos el método lookup con un símbolo que no existe
+        // Intentar buscar un símbolo que no existe
         Variant resultZ = environment.lookup("z");
 
         if (resultZ.isEmpty()) {
@@ -87,4 +87,3 @@ int main() {
 
     return 0;
 }
-

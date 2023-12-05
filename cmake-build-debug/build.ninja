@@ -61,6 +61,12 @@ build CMakeFiles/Examen3Dic5.dir/Variant.cpp.obj: CXX_COMPILER__Examen3Dic5_unsc
   OBJECT_DIR = CMakeFiles\Examen3Dic5.dir
   OBJECT_FILE_DIR = CMakeFiles\Examen3Dic5.dir
 
+build CMakeFiles/Examen3Dic5.dir/Environment.cpp.obj: CXX_COMPILER__Examen3Dic5_unscanned_Debug C$:/Users/chahla/CLionProjects/Examen3Dic5/Environment.cpp || cmake_object_order_depends_target_Examen3Dic5
+  DEP_FILE = CMakeFiles\Examen3Dic5.dir\Environment.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Examen3Dic5.dir
+  OBJECT_FILE_DIR = CMakeFiles\Examen3Dic5.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Examen3Dic5
@@ -69,7 +75,7 @@ build CMakeFiles/Examen3Dic5.dir/Variant.cpp.obj: CXX_COMPILER__Examen3Dic5_unsc
 #############################################
 # Link the executable Examen3Dic5.exe
 
-build Examen3Dic5.exe: CXX_EXECUTABLE_LINKER__Examen3Dic5_Debug CMakeFiles/Examen3Dic5.dir/main.cpp.obj CMakeFiles/Examen3Dic5.dir/Variant.cpp.obj
+build Examen3Dic5.exe: CXX_EXECUTABLE_LINKER__Examen3Dic5_Debug CMakeFiles/Examen3Dic5.dir/main.cpp.obj CMakeFiles/Examen3Dic5.dir/Variant.cpp.obj CMakeFiles/Examen3Dic5.dir/Environment.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Examen3Dic5.dir
