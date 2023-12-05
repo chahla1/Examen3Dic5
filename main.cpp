@@ -7,12 +7,22 @@ using namespace std;
 
 class Environment {
 private:
-    std::map<std::string, int> symbol_Map;
+    map<string, int> symbol_Map;
 public:
-    Environment(){
-        addSymbol("pi", 3,1416);
-        addSymbol("e", 2,718);
+    Environment(){}
+    Variant lookup(const string& symbolName) const {
+        auto it = symbolTable.find(symbolName);
+        if (it != symbolTable.end()) {
+            return it->second;
+        } else {
+            return Variant();
+        }
     }
+
+
+
+
+
 
 }
 
