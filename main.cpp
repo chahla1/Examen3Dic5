@@ -3,6 +3,24 @@
 #include <string>
 #include "Variant.h"
 
+//4. Gestion de errores
+
+// Esto es una excepción para indicar que se intentó acceder a un símbolo no existente
+class SymbolNotFoundException : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Symbol not found";
+    }
+};
+
+// Esto es una excepción para indicar que se intentó insertar un símbolo ya existente con un valor diferente
+class SymbolAlreadyExistsException : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Symbol already exists with a different value";
+    }
+};
+
 // 1. Estructura Básica:
 class Environment {
 private:
@@ -40,29 +58,33 @@ public:
 };
 
 int main() {
-    // Probamos el método insert
-    Environment environment;
+    try {
+        // Probamos el método insert
+        Environment environment;
 
-    // Añadimos nuevos símbolos al entorno
-    environment.insert("x", Variant(10));
-    environment.insert("y", Variant("Hola Examen"));
+        // Añadimos nuevos símbolos al entorno
+        environment.insert("x", Variant(10));
+        environment.insert("y", Variant("Hola Examen"));
 
-    // Actualizamos el valor de un símbolo existente
-    environment.insert("x", Variant(8));
+        // Actualizamos el valor de un símbolo existente
+        environment.insert("x", Variant(8));
 
-    // Mostramos los valores de los símbolos en el entorno
-    std::cout << "Value of x: " << environment.lookup("x").getInt() << std::endl;
-    std::cout << "Value of y: " << environment.lookup("y").getString() << std::endl;
+        // Mostramos los valores de los símbolos en el entorno
+        std::cout << "Value of x: " << environment.lookup("x").getInt() << std::endl;
+        std::cout << "Value of y: " << environment.lookup("y").getString() << std::endl;
 
-    // Probamos el método lookup con un símbolo que no existe
-    Variant resultZ = environment.lookup("z");
-    //3. Búsqueda de Símbolos:
+        // Probamos el método lookup con un símbolo que no existe
+        Variant resultZ = environment.lookup("z");
 
-    if (resultZ.isEmpty()) {
-        std::cout << "Symbol 'z' not found." << std::endl;
-    } else {
-        std::cout << "Value of z: " << resultZ.getString() << std::endl;
+        if (resultZ.isEmpty()) {
+            std::cout << "Symbol 'z' not found." << std::endl;
+        } else {
+            std::cout << "Value of z: " << resultZ.getString() << std::endl;
+        }
+    } catch (const std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
     }
 
     return 0;
 }
+
