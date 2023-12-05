@@ -51,6 +51,17 @@ public:
 
 int main() {
     try {
+        // Ejemplo 1: Configuración del Nivel
+        Environment levelConfig;
+        levelConfig.insert("levelName", Variant("Nivel 1"));
+        levelConfig.insert("enemyCount", Variant(10));
+        levelConfig.insert("playerHealth", Variant(100));
+        // Ejemplo 5: Configuración de Gráficos
+        Environment graphicsSettings;
+        graphicsSettings.insert("resolution", Variant("1920x1080"));
+        graphicsSettings.insert("graphicsQuality", Variant("Media"));
+        graphicsSettings.insert("fullscreen", Variant(true));
+
         // Crear un objeto Environment
         Environment environment;
 
