@@ -3,25 +3,6 @@
 #include <string>
 #include "Variant.h"
 
-//4. Gestion de errores
-
-// Esto es una excepción para indicar que se intentó acceder a un símbolo no existente
-class SymbolNotFoundException : public std::exception {
-public:
-    const char* what() const noexcept override {
-        return "Symbol not found";
-    }
-};
-
-// Esto es una excepción para indicar que se intentó insertar un símbolo ya existente con un valor diferente
-class SymbolAlreadyExistsException : public std::exception {
-public:
-    const char* what() const noexcept override {
-        return "Symbol already exists with a different value";
-    }
-};
-
-// 1. Estructura Básica:
 class Environment {
 private:
     std::map<std::string, Variant> symbolMap;
@@ -40,12 +21,10 @@ public:
         if (it != symbolMap.end()) {
             return it->second;
         } else {
-            // Devolver un objeto Variant que indica que el símbolo no fue encontrado
-            return Variant(); // Asumiendo que Variant tiene un constructor predeterminado indicando "sin valor"
+            return Variant();
         }
     }
 
-    // 2. Insertar Símbolos:
     void insert(const std::string &symbol, const Variant &value) {
         auto it = symbolMap.find(symbol);
 
@@ -54,6 +33,19 @@ public:
         } else {
             it->second = value;
         }
+    }
+
+    // Función para eliminar un símbolo
+    void removeSymbol(const std::string &symbol) {
+        auto it = symbolMap.find(symbol);
+        if (it != symbolMap.end()) {
+            symbolMap.erase(it);
+        }
+    }
+
+    // Función para verificar si un símbolo existe en el entorno
+    bool symbolExists(const std::string &symbol) const {
+        return symbolMap.find(symbol) != symbolMap.end();
     }
 };
 
@@ -72,16 +64,18 @@ int main() {
         // Mostrar los valores de los símbolos en el entorno
         std::cout << "Value of x: " << environment.lookup("x").getInt() << std::endl;
         std::cout << "Value of y: " << environment.lookup("y").getString() << std::endl;
+//6. Expandiendo Funcionalidades:
+        // Eliminar el símbolo "x"
+        environment.removeSymbol("x");
 
-        // Intentar buscar un símbolo que no existe
-        Variant resultZ = environment.lookup("z");
 
-        if (resultZ.isEmpty()) {
-            std::cout << "Symbol 'z' not found." << std::endl;
+        // Verificar si el símbolo "x" existe después de eliminarlo
+        if (environment.symbolExists("x")) {
+            std::cout << "Symbol 'x' still exists." << std::endl;
         } else {
-            std::cout << "Value of z: " << resultZ.getString() << std::endl;
+            std::cout << "Symbol 'x' has been removed." << std::endl;
         }
-    } catch (const std::exception& e) {
+    } catch (const std::exception &e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
 
